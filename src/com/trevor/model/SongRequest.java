@@ -2,28 +2,28 @@ package com.trevor.model;
 
 public class SongRequest {
 
-    private String singerName;
-    private Song song;
+    private String mSingerName;
+    private Song mSong;
 
     public SongRequest(String singerName, Song song) {
-        this.singerName = singerName;
-        this.song = song;
+        this.mSingerName = singerName;
+        this.mSong = song;
     }
 
-    public String getSingerName() {
-        return singerName;
+    public String getmSingerName() {
+        return mSingerName;
     }
 
-    public void setSingerName(String singerName) {
-        this.singerName = singerName;
+    public void setmSingerName(String mSingerName) {
+        this.mSingerName = mSingerName;
     }
 
-    public Song getSong() {
-        return song;
+    public Song getmSong() {
+        return mSong;
     }
 
-    public void setSong(Song song) {
-        this.song = song;
+    public void setmSong(Song mSong) {
+        this.mSong = mSong;
     }
 
     @Override
@@ -33,22 +33,22 @@ public class SongRequest {
 
         SongRequest that = (SongRequest) o;
 
-        if (!singerName.equals(that.singerName)) return false;
-        return song.equals(that.song);
+        if (!mSingerName.equals(that.mSingerName)) return false;
+        return mSong.equals(that.mSong);
     }
 
     @Override
     public int hashCode() {
-        int result = singerName.hashCode();
-        result = 31 * result + song.hashCode();
+        int result = mSingerName.hashCode();
+        result = 31 * result + mSong.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
         return "SongRequest{" +
-                "singerName='" + singerName + '\'' +
-                ", song=" + song +
+                "mSingerName='" + mSingerName + '\'' +
+                ", mSong=" + mSong +
                 '}';
     }
 }

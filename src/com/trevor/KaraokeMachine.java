@@ -2,6 +2,7 @@ package com.trevor;
 
 import com.trevor.model.Song;
 import com.trevor.model.SongBook;
+import com.trevor.model.SongRequest;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,14 +18,14 @@ import java.util.Queue;
 public class KaraokeMachine {
     private SongBook mSongBook;
     private BufferedReader mReader;
-    private Queue<Song> mSongQueue;
+    private Queue<SongRequest> mSongQueue;
 
     private Map<String, String> mMenu;
 
     public KaraokeMachine(SongBook songBook) {
         mSongBook = songBook;
         mReader = new BufferedReader(new InputStreamReader(System.in));
-        mSongQueue = new ArrayDeque<Song>();
+        mSongQueue = new ArrayDeque<SongRequest>();
         mMenu = new HashMap<String, String>();
         mMenu.put("add", "Add a new song to the song book");
         mMenu.put("play", "Play next song in the queue");
@@ -58,9 +59,10 @@ public class KaraokeMachine {
                         System.out.printf("%s added!  %n%n", song);
                         break;
                     case "choose":
+                        String singerName = promptForSingerName();
                         String artist = promptArtist();
                         Song artistSong = promptSongForArtist(artist);
-                        mSongQueue.add(artistSong);
+                        mSongQueue.add(new SongRequest(singerName, artistSong));
                         System.out.printf("You chose:  %s %n", artistSong);
                         break;
                     case "play":
@@ -78,6 +80,11 @@ public class KaraokeMachine {
                 ioe.printStackTrace();
             }
         } while (!choice.equals("quit"));
+    }
+
+    private String promptForSingerName() throws IOException {
+        System.out.print("Enter the singer's name:  ");
+        return mReader.readLine();
     }
 
     private Song promptNewSong() throws IOException {
@@ -121,12 +128,14 @@ public class KaraokeMachine {
     }
 
     public void playNext() {
-        Song song = mSongQueue.poll();
-        if (song == null) {
+        SongRequest songRequest = mSongQueue.poll();
+        if (songRequest == null) {
             System.out.println("Sorry there are no songs in the queue." +
                     "  Use choose from the menu to add some");
         } else {
-            System.out.printf("%n%n%n Open %s to hear %s by %s %n%n%n",
+            Song song = songRequest.getmSong();
+            System.out.printf("%n%n%n Ready %s? Open %s to hear %s by %s %n%n%n",
+
                     song.getVideoUrl(),
                     song.getTitle(),
                     song.getArtist());
