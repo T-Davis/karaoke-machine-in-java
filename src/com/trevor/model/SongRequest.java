@@ -10,19 +10,19 @@ public class SongRequest {
         this.mSong = song;
     }
 
-    public String getmSingerName() {
+    public String getSingerName() {
         return mSingerName;
     }
 
-    public void setmSingerName(String mSingerName) {
+    public void setSingerName(String mSingerName) {
         this.mSingerName = mSingerName;
     }
 
-    public Song getmSong() {
+    public Song getSong() {
         return mSong;
     }
 
-    public void setmSong(Song mSong) {
+    public void setSong(Song mSong) {
         this.mSong = mSong;
     }
 
@@ -33,22 +33,14 @@ public class SongRequest {
 
         SongRequest that = (SongRequest) o;
 
-        if (!mSingerName.equals(that.mSingerName)) return false;
-        return mSong.equals(that.mSong);
+        if (mSingerName != null ? !mSingerName.equals(that.mSingerName) : that.mSingerName != null) return false;
+        return mSong != null ? mSong.equals(that.mSong) : that.mSong == null;
     }
 
     @Override
     public int hashCode() {
-        int result = mSingerName.hashCode();
-        result = 31 * result + mSong.hashCode();
+        int result = mSingerName != null ? mSingerName.hashCode() : 0;
+        result = 31 * result + (mSong != null ? mSong.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "SongRequest{" +
-                "mSingerName='" + mSingerName + '\'' +
-                ", mSong=" + mSong +
-                '}';
     }
 }
